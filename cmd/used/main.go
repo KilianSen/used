@@ -38,12 +38,13 @@ var commands = map[string]command{
 	"auto":      {"                         clear hold/release", override("none")},
 	"tray":      {"[--background]           menu-bar / tray icon with hold and release", cmdTray},
 	"install":   {"                         start the daemon at login (per user, no admin)", cmdInstall},
+	"update":    {"[--check] [--version vX] update to the latest release, restart the daemon", cmdUpdate},
 	"uninstall": {"                         stop the daemon and remove autostart", cmdUninstall},
 	"config":    {"                         show config path and effective config", cmdConfig},
 	"version":   {"                         print version", func(config.Config, []string) error { fmt.Println("used", version); return nil }},
 }
 
-var order = []string{"status", "watch", "explain", "exec", "hold", "release", "auto", "daemon", "tray", "install", "uninstall", "config", "version"}
+var order = []string{"status", "watch", "explain", "exec", "hold", "release", "auto", "daemon", "tray", "install", "update", "uninstall", "config", "version"}
 
 func main() {
 	if len(os.Args) < 2 || os.Args[1] == "-h" || os.Args[1] == "--help" || os.Args[1] == "help" {
@@ -203,7 +204,10 @@ func override(mode string) func(config.Config, []string) error {
 	}
 }
 
-func cmdInstall(cfg config.Config, _ []string) error {
+func cmdInstall(cfg config.Config, _ []string) error { return reinstall(cfg) }
+
+// reinstall registers autostart and (re)starts the daemon from this binary.
+func reinstall(cfg config.Config) error {
 	_ = dial(cfg).post("/v1/shutdown", nil, nil) // replace a running daemon (e.g. after upgrade)
 	summary, err := install.Install()
 	if err != nil {
