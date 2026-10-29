@@ -17,6 +17,10 @@ curl -fsSL https://raw.githubusercontent.com/KilianSen/used/master/install.sh | 
 irm https://raw.githubusercontent.com/KilianSen/used/master/install.ps1 | iex          # Windows
 ```
 
+Update: `used update` (or `used update --check`). It fetches the latest
+release, verifies its checksum, swaps the binary and restarts the daemon if
+`used install` set it up. `--version v0.2.0` pins or rolls back.
+
 Or from source:
 
 ```sh

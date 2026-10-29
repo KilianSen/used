@@ -16,6 +16,8 @@ func plistPath() string {
 
 func domain() string { return fmt.Sprintf("gui/%d", os.Getuid()) }
 
+func installed() bool { _, err := os.Stat(plistPath()); return err == nil }
+
 func logPath() string {
 	home, _ := os.UserHomeDir()
 	return filepath.Join(home, "Library", "Logs", "used.log")
