@@ -1,0 +1,31 @@
+# Release: `goreleaser release --clean` on a tag. Asset names are what
+# install.sh / install.ps1 expect: used_<os>_<arch>.(tar.gz|zip) + checksums.txt.
+version: 2
+project_name: used
+
+builds:
+  - main: ./cmd/used
+    binary: used
+    env: [CGO_ENABLED=0]
+    goos: [darwin, linux, windows]
+    goarch: [amd64, arm64]
+    flags: [-trimpath]
+    ldflags: ["-s -w -X main.version={{ .Version }}"]
+
+archives:
+  - name_template: "{{ .ProjectName }}_{{ .Os }}_{{ .Arch }}"
+    formats: [tar.gz]
+    format_overrides:
+      - goos: windows
+        formats: [zip]
+    files: [README.md, DESIGN.md]
+
+checksum:
+  name_template: checksums.txt
+
+# TODO before a public release: macOS signing + notarization (`notarize:`
+# with a Developer ID) and Windows Authenticode signing (`signs:`), otherwise
+# Gatekeeper / SmartScreen will warn on downloads opened from a browser.
+
+changelog:
+  sort: asc
