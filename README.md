@@ -13,8 +13,8 @@ as workload load.
 Install (per user, no admin; starts at login):
 
 ```sh
-curl -fsSL https://raw.githubusercontent.com/KilianSen/used/main/install.sh | sh     # macOS / Linux
-irm https://raw.githubusercontent.com/KilianSen/used/main/install.ps1 | iex          # Windows
+curl -fsSL https://raw.githubusercontent.com/KilianSen/used/master/install.sh | sh     # macOS / Linux
+irm https://raw.githubusercontent.com/KilianSen/used/master/install.ps1 | iex          # Windows
 ```
 
 Or from source:

@@ -1,0 +1,29 @@
+# Every push to staging keeps one open PR staging → master.
+name: staging
+
+on:
+  push:
+    branches: [staging]
+
+permissions:
+  contents: read
+  pull-requests: write
+
+jobs:
+  pr:
+    runs-on: ubuntu-latest
+    steps:
+      - name: open PR if none
+        env:
+          GH_TOKEN: ${{ secrets.GITHUB_TOKEN }}
+          GH_REPO: ${{ github.repository }}
+        run: |
+          if [ -n "$(gh pr list --head staging --base master --state open --json number --jq '.[].number')" ]; then
+            echo "PR already open"; exit 0
+          fi
+          if [ "$(gh api "repos/$GH_REPO/compare/master...staging" --jq .ahead_by)" = 0 ]; then
+            echo "staging has nothing new"; exit 0
+          fi
+          gh pr create --base master --head staging \
+            --title "Release: staging → master" \
+            --body "Opened automatically from \`staging\`. Merging releases the next version (feat → minor, \`!\`/BREAKING CHANGE → major, else patch)."

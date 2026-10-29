@@ -1,7 +1,7 @@
 #!/bin/sh
 # Install used on macOS or Linux and start it at login (no root needed):
 #
-#   curl -fsSL https://raw.githubusercontent.com/KilianSen/used/main/install.sh | sh
+#   curl -fsSL https://raw.githubusercontent.com/KilianSen/used/master/install.sh | sh
 #
 # Env: USED_VERSION (default: latest), USED_BIN_DIR (default: ~/.local/bin),
 #      USED_REPO (default: KilianSen/used), USED_NO_SERVICE=1 to skip `used install`.

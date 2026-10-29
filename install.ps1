@@ -1,6 +1,6 @@
 # Install used on Windows and start it at login (no admin needed):
 #
-#   irm https://raw.githubusercontent.com/KilianSen/used/main/install.ps1 | iex
+#   irm https://raw.githubusercontent.com/KilianSen/used/master/install.ps1 | iex
 #
 # Env: USED_VERSION (default: latest), USED_REPO (default: KilianSen/used),
 #      USED_NO_SERVICE=1 to skip `used install`.
