@@ -13,3 +13,5 @@ func install(string) (string, error) {
 func uninstall() (string, error) {
 	return "", fmt.Errorf("install is not supported on %s", runtime.GOOS)
 }
+
+func installed() bool { return false }

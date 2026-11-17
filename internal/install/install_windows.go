@@ -23,6 +23,16 @@ func logPath() string {
 	return filepath.Join(dir, "used", "used.log")
 }
 
+func installed() bool {
+	k, err := registry.OpenKey(registry.CURRENT_USER, runKey, registry.QUERY_VALUE)
+	if err != nil {
+		return false
+	}
+	defer k.Close()
+	_, _, err = k.GetStringValue(valueName)
+	return err == nil
+}
+
 func install(exe string) (string, error) {
 	args := []string{"daemon", "--background", "--log", logPath()}
 	k, _, err := registry.CreateKey(registry.CURRENT_USER, runKey, registry.SET_VALUE)

@@ -14,6 +14,8 @@ func unitPath() string {
 	return filepath.Join(dir, "systemd", "user", "used.service")
 }
 
+func installed() bool { _, err := os.Stat(unitPath()); return err == nil }
+
 func install(exe string) (string, error) {
 	if _, err := exec.LookPath("systemctl"); err != nil {
 		return "", errors.New("systemd not found: start `used daemon` from your session's autostart instead")

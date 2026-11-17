@@ -39,6 +39,9 @@ func Install() (string, error) {
 // Uninstall stops and unregisters the daemon.
 func Uninstall() (string, error) { return uninstall() }
 
+// Installed reports whether autostart is registered for this user.
+func Installed() bool { return installed() }
+
 func run(name string, args ...string) error {
 	out, err := exec.Command(name, args...).CombinedOutput()
 	if err != nil {

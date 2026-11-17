@@ -446,6 +446,7 @@ used explain                human-readable decision trace
 used exec --tag T -- cmd    run as ignored workload
 used hold [--for D] / used release [--for D]
 used install / uninstall    register daemon + session agent
+used update [--check]       self-update from GitHub releases (checksum-verified)
 used config check           validate config, list rule warnings
 used version
 ```
